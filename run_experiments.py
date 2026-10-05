@@ -302,42 +302,29 @@ def experiment_4_run(input_file):
     # This code runs when you click "run Python file"
 if __name__ == "__main__":
 
+    df = pd.read_csv("results/experiment_4_results.csv")
 
-    probabilities = [
-        0.001,
-        0.005,
-        0.01,
-        0.05,
-        0.10
-    ]
+plt.figure()
 
-    results = []
+plt.plot(
+    df["Size"],
+    df["Heapify"],
+    marker="o",
+    label="Heapify"
+)
 
-    for probability in probabilities:
+plt.plot(
+    df["Size"],
+    df["PushOneByOne"],
+    marker="o",
+    label="Push One-by-One"
+)
 
-        filename = experiment_3_generate(
-            1_000_000,
-            probability
-        )
+plt.xlabel("Sequence Length")
+plt.ylabel("Running Time (seconds)")
+plt.title("Experiment 4: Heapify vs Push One-by-One")
+plt.legend()
+plt.grid()
 
-        heap_time, competitor_time = experiment_3_run(filename)
-
-        percentage = probability * 100
-
-        print(
-            percentage,
-            "Heap:", heap_time,
-            "Competitor:", competitor_time
-        )
-
-        results.append([
-            percentage,
-            heap_time,
-            competitor_time
-        ])
-
-    save_results(
-        "experiment_3_results.csv",
-        ["PopPercentage", "MaxHeap", "Competitor"],
-        results
-    )
+plt.savefig("plots/experiment_4.png")
+plt.show()
