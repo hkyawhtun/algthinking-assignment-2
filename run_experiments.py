@@ -6,9 +6,13 @@ from competitor import Competitor
 import random
 import csv
 from pathlib import Path
+import pandas as pd
+import matplotlib.pyplot as plt
 
 RESULTS_DIR = Path("results")
 RESULTS_DIR.mkdir(exist_ok=True)
+
+Path("plots").mkdir(exist_ok=True)
 
 def save_results(filename, headers, rows):
     path = RESULTS_DIR / filename
